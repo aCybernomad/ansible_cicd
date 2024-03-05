@@ -1,8 +1,20 @@
----
+- name: Pull Docker image
+  hosts: localhost
+
+  tasks:
+    - name: Ensure Docker is installed
+      apt:
+        name: docker.io
+        state: present
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: Pull Docker image
+      shell: "docker pull bugzapper/iss-app-cicd:latest"
+      # Instead of running every time dont download every time
+
 - name: Hello World Playbook
   hosts: localhost
   tasks:
     - name: Print Hello World
       debug:
         msg: "Hello, World!"
-
